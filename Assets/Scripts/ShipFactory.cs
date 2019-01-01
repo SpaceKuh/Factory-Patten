@@ -15,4 +15,13 @@ public class ShipFactory
 
         return newShip;
     }
+
+	public SpaceShip BuildShipWithDoubleAttack()
+	{
+		SpaceShip newShip = new SpaceShip();
+		newShip.SetPrimaryAttack(new DoubleAttack());
+		newShip.SetShipControlls(new BasicControlls());
+
+		return newShip;	
+	}
 }
