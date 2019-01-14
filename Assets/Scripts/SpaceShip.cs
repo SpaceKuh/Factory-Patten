@@ -11,12 +11,15 @@ public sealed class SpaceShip : GameBehaviour, PrimaryAttackRequires, ShipContro
     {
         Debug.Log("I have been created");
         m_transform.gameObject.AddComponent<SpriteRenderer>();
-        m_transform.gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("rock");
+        m_transform.gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("spaceship");
+        PhysicsWrapper.InitPhysics(this);
     }
     public override void Update()
     {
         controlls.UpdateControlls();
         primaryAttack.UpdatePrimaryAttack();
+        if (Input.GetKeyDown(KeyCode.T))
+            Destroy();
     }
 
     public SpaceShip GetReference()
@@ -44,4 +47,15 @@ public sealed class SpaceShip : GameBehaviour, PrimaryAttackRequires, ShipContro
     {
         return movementSpeed;
     }
+
+    public override void OnCollisionEnter2D(Collision2D other)
+    {
+        Debug.Log("collided");
+    }
+
+    public override void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("triggered");
+    }
+
 }

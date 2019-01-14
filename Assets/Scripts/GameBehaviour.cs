@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class GameBehaviour
+public abstract class GameBehaviour : ColliderRequires
 {
     private GameObject m_gameobject;
     protected Transform m_transform;
     protected Gamemanager gamemanager;
+    protected Collider collider;
+    protected Collider2D hitbox;
+
     public GameBehaviour()
     {
         m_gameobject = new GameObject();
@@ -24,8 +27,28 @@ public abstract class GameBehaviour
 
     // Update is called once per frame
     public abstract void Update();
-	public GameObject GetGameObject()
-	{
-		return m_gameobject;
-	}
+    public GameObject GetGameObject()
+    {
+        return m_gameobject;
+    }
+
+    public void Destroy()
+    {
+        gamemanager.Remove(this);
+        this.m_gameobject.SetActive(false);
+    }
+
+    public void InitializeCollider()
+    {
+        collider = GetGameObject().AddComponent<Collider>();
+        collider.Initialize(this);
+        GetGameObject().AddComponent<BoxCollider2D>();
+    }
+
+    public virtual void OnCollisionEnter2D(Collision2D other) { }
+    public virtual void OnTriggerEnter2D(Collider2D other) { }
+    public virtual Collider2D GetCollider()
+    {
+        return hitbox;
+    }
 }

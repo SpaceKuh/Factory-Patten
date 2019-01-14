@@ -5,6 +5,7 @@ using UnityEngine;
 public class Main : MonoBehaviour
 {
     private Gamemanager gamemanager;
+    private MainCamera main_camera;
     /// <summary>
     /// Awake is called when the script instance is being loaded.
     /// </summary>
@@ -12,12 +13,21 @@ public class Main : MonoBehaviour
     {
         gamemanager = Gamemanager.GetInstance();
     }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    public static void CreateGame()
+    {
+        GameObject _gameobject = new GameObject();
+        _gameobject.AddComponent<Main>();
+    }
     // Use this for initialization
     void Start()
     {
-        // SpaceShip ship1 = new SpaceShip();
         ShipFactory shipFactory = new ShipFactory();
-        SpaceShip basicShip = shipFactory.BuildBasicShip();
+        SpaceShip basicShip = shipFactory.BuildShipWithDoubleAttack();
+        Camera.main.GetComponent<SmoothFollow2D>().m_Target = basicShip.GetGameObject().transform;
+        WorldGenerator world_generator = WorldGenerator.GetInstance();
+        world_generator.GenerateWorld();
     }
 
     // Update is called once per frame

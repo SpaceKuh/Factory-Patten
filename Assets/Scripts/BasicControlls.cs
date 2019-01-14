@@ -23,6 +23,11 @@ public class BasicControlls : ShipContollProvides
             Move(Vector3.left);
         if (Input.GetKey(KeyCode.D))
             Move(Vector3.right);
- 
+        if (Input.GetKey(KeyCode.W))
+            Move(Vector3.up);
+        if (Input.GetKey(KeyCode.S))
+            Move(Vector3.down);
+
+
     }
 }
