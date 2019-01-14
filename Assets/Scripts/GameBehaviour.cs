@@ -7,7 +7,6 @@ public abstract class GameBehaviour : ColliderRequires
     private GameObject m_gameobject;
     protected Transform m_transform;
     protected Gamemanager gamemanager;
-    protected Collider collider;
     protected Collider2D hitbox;
 
     public GameBehaviour()
@@ -40,8 +39,6 @@ public abstract class GameBehaviour : ColliderRequires
 
     public void InitializeCollider()
     {
-        collider = GetGameObject().AddComponent<Collider>();
-        collider.Initialize(this);
         GetGameObject().AddComponent<BoxCollider2D>();
     }
 
