@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public sealed class SpaceShip : GameBehaviour, PrimaryAttackRequires, ShipControllRequires
+public sealed class SpaceShip : GameBehaviour, PrimaryAttackRequires, ShipControllRequires, ShipInterface
 {
     private PrimaryAttackProvides primaryAttack;
     private ShipContollProvides controlls;
@@ -27,6 +27,12 @@ public sealed class SpaceShip : GameBehaviour, PrimaryAttackRequires, ShipContro
         return this;
     }
 
+    public PrimaryAttackProvides GetPrimaryWeapon()
+    {
+        return primaryAttack;
+    }
+
+
     public Vector3 GetPrimaryWeaponPosition()
     {
         return m_transform.position + Vector3.up;
@@ -34,7 +40,8 @@ public sealed class SpaceShip : GameBehaviour, PrimaryAttackRequires, ShipContro
 
     public void SetPrimaryAttack(PrimaryAttackProvides _primaryAttack)
     {
-        primaryAttack = _primaryAttack;
+        _primaryAttack.Initialize(this);
+        primaryAttack = new KrasserDecorator(_primaryAttack);
         primaryAttack.Initialize(this);
     }
 

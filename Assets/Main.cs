@@ -24,7 +24,7 @@ public class Main : MonoBehaviour
     void Start()
     {
         ShipFactory shipFactory = new ShipFactory();
-        SpaceShip basicShip = shipFactory.BuildShipWithDoubleAttack();
+        SpaceShip basicShip = shipFactory.BuildBasicShip();
         Camera.main.GetComponent<SmoothFollow2D>().m_Target = basicShip.GetGameObject().transform;
         WorldGenerator world_generator = WorldGenerator.GetInstance();
         world_generator.GenerateWorld();

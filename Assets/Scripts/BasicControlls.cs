@@ -6,11 +6,23 @@ public class BasicControlls : ShipContollProvides
 {
     private SpaceShip ship;
     private Transform shipTransform;
-    public BasicControlls() { }
+    private MoveCommand moveRight;
+    private MoveCommand moveLeft;
+    private MoveCommand moveUp;
+    private MoveCommand moveDown;
+    private CommandManager commandManager;
+    public BasicControlls()
+    {
+        commandManager = CommandManager.GetInstance();
+    }
     public void Initialize(ShipControllRequires _ship)
     {
         ship = _ship.GetReference();
         shipTransform = ship.GetGameObject().transform;
+        moveRight = new MoveCommand(ship, Vector3.right);
+        moveLeft = new MoveCommand(ship, Vector3.left);
+        moveUp = new MoveCommand(ship, Vector3.up);
+        moveDown = new MoveCommand(ship, Vector3.down);
     }
     private void Move(Vector3 _direction)
     {
@@ -20,13 +32,17 @@ public class BasicControlls : ShipContollProvides
     public void UpdateControlls()
     {
         if (Input.GetKey(KeyCode.A))
-            Move(Vector3.left);
+            moveLeft.Execute();
         if (Input.GetKey(KeyCode.D))
-            Move(Vector3.right);
+            moveRight.Execute();
         if (Input.GetKey(KeyCode.W))
-            Move(Vector3.up);
+            moveUp.Execute();
         if (Input.GetKey(KeyCode.S))
-            Move(Vector3.down);
+            moveDown.Execute();
+
+        if (Input.GetKey(KeyCode.Z))
+            commandManager.UndoLastCommand();
+
 
 
     }

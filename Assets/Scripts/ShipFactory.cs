@@ -15,13 +15,20 @@ public class ShipFactory
 
         return newShip;
     }
+    public SpaceShip BuildTiltControllShip()
+    {
+        SpaceShip newShip = new SpaceShip();
+        newShip.SetPrimaryAttack(new BasicAttack());
+        newShip.SetShipControlls(new BasicControlls());
 
-	public SpaceShip BuildShipWithDoubleAttack()
-	{
-		SpaceShip newShip = new SpaceShip();
-		newShip.SetPrimaryAttack(new DoubleAttack());
-		newShip.SetShipControlls(new BasicControlls());
+        return newShip;
+    }
+    public SpaceShip BuildShipWithDoubleAttack()
+    {
+        SpaceShip newShip = new SpaceShip();
+        newShip.SetPrimaryAttack(new DoubleAttack());
+        newShip.SetShipControlls(new BasicControlls());
 
-		return newShip;	
-	}
+        return newShip;
+    }
 }
